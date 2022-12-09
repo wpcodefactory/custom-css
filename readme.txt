@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder
 Tags: css, js, php, javascript, custom css, custom js, custom php, custom javascript
 Requires at least: 4.4
 Tested up to: 6.1
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,7 +17,7 @@ Just another custom CSS, JavaScript & PHP tool for WordPress.
 * custom **JavaScript** (front-end and/or back-end), and
 * custom **PHP**.
 
-= Feedback =
+### &#128472; Feedback ###
 
 * We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
 
@@ -35,7 +35,7 @@ Just another custom CSS, JavaScript & PHP tool for WordPress.
 
 == Changelog ==
 
-= 2.2.1 - 11/11/2022 =
+= 2.2.1 - 09/12/2022 =
 * Tested up to: 6.1.
 * Readme.txt updated.
 * Deploy script added.
