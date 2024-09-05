@@ -2,7 +2,7 @@
 /**
  * Custom CSS, JS & PHP - Main Class
  *
- * @version 2.2.0
+ * @version 2.3.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -19,6 +19,22 @@ final class Alg_CCJP {
 	 * @since 1.0.0
 	 */
 	protected static $_instance = null;
+
+	/**
+	 * core.
+	 *
+	 * @version 2.3.0
+	 * @since   2.3.0
+	 */
+	public $core;
+
+	/**
+	 * settings.
+	 *
+	 * @version 2.3.0
+	 * @since   2.3.0
+	 */
+	public $settings;
 
 	/**
 	 * Main Alg_CCJP Instance

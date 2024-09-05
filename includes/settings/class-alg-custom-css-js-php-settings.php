@@ -2,13 +2,13 @@
 /**
  * Custom CSS, JS & PHP - Settings Class
  *
- * @version 2.1.0
+ * @version 2.3.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_Custom_CSS_JS_PHP_Settings' ) ) :
 
@@ -17,19 +17,75 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.1.0
+	 * @version 2.3.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [next] (feature) add option to set custom PHP file path (i.e. dir and name) (instead of `uploads_dir/alg-custom-php/custom-php.php`)
-	 * @todo    [next] (feature) implement CSS, JS, PHP editors instead of simple textareas
-	 * @todo    [next] (dev) allow "tab" in content
-	 * @todo    [next] (dev) `require_once( untrailingslashit( plugin_dir_path( ALG_CCJP_PLUGIN_FILE ) ) . '/includes/lib/csstidy-1.3/class.csstidy.php' );` and `$this->csstidy = new csstidy();`
+	 * @todo    (feature) add option to set custom PHP file path (i.e., dir and name) (instead of `uploads_dir/alg-custom-php/custom-php.php`)
+	 * @todo    (dev) `require_once( untrailingslashit( plugin_dir_path( ALG_CCJP_PLUGIN_FILE ) ) . '/includes/lib/csstidy-1.3/class.csstidy.php' );` and `$this->csstidy = new csstidy();`
 	 */
 	function __construct() {
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'save_options' ) );
 			add_action( 'admin_menu', array( $this, 'add_plugin_options_pages' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_code_editor_scripts' ) );
 		}
+	}
+
+	/**
+	 * enqueue_code_editor_scripts.
+	 *
+	 * @version 2.3.0
+	 * @since   2.3.0
+	 *
+	 * @see     https://developer.wordpress.org/reference/functions/wp_enqueue_code_editor/
+	 *
+	 * @todo    (dev) make this optional?
+	 */
+	function enqueue_code_editor_scripts() {
+
+		// Get type
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+		$type   = false;
+		$screen = get_current_screen();
+		switch ( $screen->id ) {
+			case 'tools_page_alg-custom-css':
+				$type = 'css';
+				$ids  = array( 'alg_custom_css_front_end_css', 'alg_custom_css_back_end_css' );
+				break;
+			case 'tools_page_alg-custom-js':
+				$type = 'javascript';
+				$ids  = array( 'alg_custom_css_front_end_js', 'alg_custom_css_back_end_js' );
+				break;
+			case 'tools_page_alg-custom-php':
+				$type = 'php';
+				$ids  = array( 'alg_custom_css_php' );
+				break;
+		}
+		if ( ! $type ) {
+			return;
+		}
+
+		// Enqueue code editor and settings
+		if ( false === ( $settings = wp_enqueue_code_editor( array( 'type' => $type ) ) ) ) {
+			return;
+		}
+
+		// Add inline script
+		$script = array();
+		foreach ( $ids as $id ) {
+			$script[] = sprintf(
+				'jQuery( function () { wp.codeEditor.initialize( "%s", %s ); } );',
+				$id,
+				wp_json_encode( $settings )
+			);
+		}
+		wp_add_inline_script(
+			'code-editor',
+			implode( PHP_EOL, $script )
+		);
+
 	}
 
 	/*
@@ -71,7 +127,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	 * @version 2.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [next] (dev) `$this->csstidy->parse( $value );` and `$this->csstidy->print->plain();` (but preserve spaces at line start, disable optimization etc.)
+	 * @todo    (dev) `$this->csstidy->parse( $value );` and `$this->csstidy->print->plain();` (but preserve spaces at line start, disable optimization etc.)
 	 */
 	function sanitize_content( $value ) {
 		return stripslashes( $value );
@@ -115,7 +171,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * handle_custom_php_file.
 	 *
-	 * @version 2.0.0
+	 * @version 2.3.0
 	 * @since   2.0.0
 	 */
 	function handle_custom_php_file() {
@@ -124,7 +180,10 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 			$file_content = get_alg_ccjp_option( 'php', '' );
 			if ( '' !== $file_content ) {
 				$file_path = alg_ccjp()->core->get_custom_php_file_path( true );
-				file_put_contents( $file_path, '<?php' . PHP_EOL . $file_content );
+				if ( '<?' !== substr( $file_content, 0, 2 ) ) {
+					$file_content = '<?php' . PHP_EOL . $file_content;
+				}
+				file_put_contents( $file_path, $file_content );
 			} else {
 				$do_clean_up = true;
 			}
@@ -176,7 +235,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * create_plugin_options_page.
 	 *
-	 * @version 2.1.0
+	 * @version 2.3.0
 	 * @since   1.0.0
 	 */
 	function create_plugin_options_page( $section ) {
@@ -207,9 +266,9 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 				case 'textarea':
 					$table_data[] = array(
 						'',
-						( isset( $settings['desc_tip'] ) ? $settings['desc_tip'] : '' ) .
+						( isset( $settings['desc_tip'] ) ? '<p>' . $settings['desc_tip'] . '</p>' : '' ) .
 						'<textarea style="' . $settings['css'] . '" id="' . $id . '" name="' . $id . '">' . esc_textarea( $saved_value ) . '</textarea>' .
-						( isset( $settings['desc'] ) ? '<em>' . $settings['desc'] . '</em>' : '' ),
+						( isset( $settings['desc'] ) ? '<p>' . '<em>' . $settings['desc'] . '</em>' . '</p>' : '' ),
 					);
 					break;
 				case 'select':
@@ -232,6 +291,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 				strtoupper( $_section ) . '</a>';
 		}
 		$html = '';
+		$html .= '<style>.alg_ccjp_striped tr:nth-child(odd) { background-color: #fbfbfb; }</style>';
 		$html .= '<div class="wrap">';
 		$html .= '<h1>' . __( 'Custom CSS, JS & PHP', 'custom-css' ) . '</h1>';
 		$html .= '<p style="font-style:italic;">' . __( 'Just another custom CSS, JavaScript & PHP tool for WordPress.', 'custom-css' ) . '</p>';
@@ -239,7 +299,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 		$html .= '<form action="' . add_query_arg( '', '' ) . '" method="post">';
 		$html .= $this->get_table_html( $table_data, array(
 			'table_style'        => 'width:100%;',
-			'table_class'        => 'widefat striped',
+			'table_class'        => 'widefat alg_ccjp_striped',
 			'table_heading_type' => 'vertical',
 			'columns_styles'     => array( 'width:20%', 'width:80%' )
 		) );
@@ -253,10 +313,10 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.0
+	 * @version 2.3.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [maybe] (desc) custom PHP: `if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly`
+	 * @todo    (desc) custom PHP: `defined( 'ABSPATH' ) || exit;`
 	 */
 	function get_settings( $section ) {
 		$textarea_style = 'width:100%; min-height:300px; font-family:Courier New,Courier,monospace; color: black;';
@@ -396,7 +456,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 					'type'     => 'checkbox',
 				),
 				array(
-					'desc_tip' => sprintf( __( 'PHP code (without the %s tag):', 'custom-css' ), '<code>' . esc_html( '<?php' ) . '</code>' ),
+					'desc_tip' => sprintf( __( 'PHP code (start with the %s tag):', 'custom-css' ), '<code>' . esc_html( '<?php' ) . '</code>' ),
 					'id'       => 'php',
 					'default'  => '',
 					'type'     => 'textarea',

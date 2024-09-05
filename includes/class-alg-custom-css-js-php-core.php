@@ -8,7 +8,7 @@
  * @author  Algoritmika Ltd.
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_Custom_CSS_JS_PHP_Core' ) ) :
 
@@ -20,8 +20,8 @@ class Alg_Custom_CSS_JS_PHP_Core {
 	 * @version 2.2.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [next] (feature) add option to set "custom CSS / JS" on per product basis (i.e. single product page)
-	 * @todo    [next] (feature) CSS and JS minimization
+	 * @todo    (feature) add option to set "custom CSS / JS" on per product basis (i.e., single product page)
+	 * @todo    (feature) CSS and JS minimization
 	 */
 	function __construct() {
 		// CSS & JS

@@ -1,97 +1,97 @@
-#: includes/settings/class-alg-custom-css-js-php-settings.php:44
-#: includes/settings/class-alg-custom-css-js-php-settings.php:45
-#: includes/settings/class-alg-custom-css-js-php-settings.php:266
+#: includes/settings/class-alg-custom-css-js-php-settings.php:100
+#: includes/settings/class-alg-custom-css-js-php-settings.php:101
+#: includes/settings/class-alg-custom-css-js-php-settings.php:326
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:52
-#: includes/settings/class-alg-custom-css-js-php-settings.php:53
+#: includes/settings/class-alg-custom-css-js-php-settings.php:108
+#: includes/settings/class-alg-custom-css-js-php-settings.php:109
 msgid "Custom JS"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:60
-#: includes/settings/class-alg-custom-css-js-php-settings.php:61
-#: includes/settings/class-alg-custom-css-js-php-settings.php:383
+#: includes/settings/class-alg-custom-css-js-php-settings.php:116
+#: includes/settings/class-alg-custom-css-js-php-settings.php:117
+#: includes/settings/class-alg-custom-css-js-php-settings.php:443
 msgid "Custom PHP"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:236
+#: includes/settings/class-alg-custom-css-js-php-settings.php:296
 msgid "Custom CSS, JS & PHP"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:237
+#: includes/settings/class-alg-custom-css-js-php-settings.php:297
 msgid "Just another custom CSS, JavaScript & PHP tool for WordPress."
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:247
+#: includes/settings/class-alg-custom-css-js-php-settings.php:307
 msgid "Save changes"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:271
-#: includes/settings/class-alg-custom-css-js-php-settings.php:294
+#: includes/settings/class-alg-custom-css-js-php-settings.php:331
+#: includes/settings/class-alg-custom-css-js-php-settings.php:354
 msgid "CSS"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:271
-#: includes/settings/class-alg-custom-css-js-php-settings.php:329
+#: includes/settings/class-alg-custom-css-js-php-settings.php:331
+#: includes/settings/class-alg-custom-css-js-php-settings.php:389
 msgid "front-end"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:272
+#: includes/settings/class-alg-custom-css-js-php-settings.php:332
 msgid "Enable custom front-end CSS"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:282
-#: includes/settings/class-alg-custom-css-js-php-settings.php:305
-#: includes/settings/class-alg-custom-css-js-php-settings.php:340
-#: includes/settings/class-alg-custom-css-js-php-settings.php:363
+#: includes/settings/class-alg-custom-css-js-php-settings.php:342
+#: includes/settings/class-alg-custom-css-js-php-settings.php:365
+#: includes/settings/class-alg-custom-css-js-php-settings.php:400
+#: includes/settings/class-alg-custom-css-js-php-settings.php:423
 msgid "Load in header"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:283
-#: includes/settings/class-alg-custom-css-js-php-settings.php:306
-#: includes/settings/class-alg-custom-css-js-php-settings.php:341
-#: includes/settings/class-alg-custom-css-js-php-settings.php:364
+#: includes/settings/class-alg-custom-css-js-php-settings.php:343
+#: includes/settings/class-alg-custom-css-js-php-settings.php:366
+#: includes/settings/class-alg-custom-css-js-php-settings.php:401
+#: includes/settings/class-alg-custom-css-js-php-settings.php:424
 msgid "Load in footer"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:287
-#: includes/settings/class-alg-custom-css-js-php-settings.php:310
+#: includes/settings/class-alg-custom-css-js-php-settings.php:347
+#: includes/settings/class-alg-custom-css-js-php-settings.php:370
 msgid "CSS code:"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:294
-#: includes/settings/class-alg-custom-css-js-php-settings.php:352
+#: includes/settings/class-alg-custom-css-js-php-settings.php:354
+#: includes/settings/class-alg-custom-css-js-php-settings.php:412
 msgid "back-end (admin)"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:295
+#: includes/settings/class-alg-custom-css-js-php-settings.php:355
 msgid "Enable custom back-end CSS"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:324
+#: includes/settings/class-alg-custom-css-js-php-settings.php:384
 msgid "Custom JavaScript"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:329
-#: includes/settings/class-alg-custom-css-js-php-settings.php:352
+#: includes/settings/class-alg-custom-css-js-php-settings.php:389
+#: includes/settings/class-alg-custom-css-js-php-settings.php:412
 msgid "JS"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:330
+#: includes/settings/class-alg-custom-css-js-php-settings.php:390
 msgid "Enable custom front-end JS"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:345
-#: includes/settings/class-alg-custom-css-js-php-settings.php:368
+#: includes/settings/class-alg-custom-css-js-php-settings.php:405
+#: includes/settings/class-alg-custom-css-js-php-settings.php:428
 msgid "JS code:"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:353
+#: includes/settings/class-alg-custom-css-js-php-settings.php:413
 msgid "Enable custom back-end JS"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:387
+#: includes/settings/class-alg-custom-css-js-php-settings.php:447
 #, php-format
 msgid ""
 "Please note that if you enable custom PHP and enter non-valid PHP code here, "
@@ -100,25 +100,25 @@ msgid ""
 "reason custom PHP code is not executed on %s page))."
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:389
+#: includes/settings/class-alg-custom-css-js-php-settings.php:449
 #, php-format
 msgid "E.g.: %s"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:392
+#: includes/settings/class-alg-custom-css-js-php-settings.php:452
 msgid "PHP"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:393
+#: includes/settings/class-alg-custom-css-js-php-settings.php:453
 msgid "Enable custom PHP"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:399
+#: includes/settings/class-alg-custom-css-js-php-settings.php:459
 #, php-format
-msgid "PHP code (without the %s tag):"
+msgid "PHP code (start with the %s tag):"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:405
+#: includes/settings/class-alg-custom-css-js-php-settings.php:465
 #, php-format
 msgid "Automatically created PHP file: %s"
 msgstr ""

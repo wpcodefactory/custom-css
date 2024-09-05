@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, algoritmika, anbinder
 Tags: css, js, php, javascript, custom css, custom js, custom php, custom javascript
 Requires at least: 4.4
-Tested up to: 6.1
-Stable tag: 2.2.1
+Tested up to: 6.6
+Stable tag: 2.3.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -34,6 +34,14 @@ Just another custom CSS, JavaScript & PHP tool for WordPress.
 3. Custom PHP.
 
 == Changelog ==
+
+= 2.3.0 - 05/09/2024 =
+* Dev - Code editors added.
+* Dev - Custom PHP - Now allows/recommends the opening tag.
+* Dev - PHP 8.2 compatibility - "Creation of dynamic property is deprecated" notice fixed.
+* Dev - Admin settings restyled.
+* Dev - Code refactoring.
+* Tested up to: 6.6.
 
 = 2.2.1 - 09/12/2022 =
 * Tested up to: 6.1.
