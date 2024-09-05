@@ -1,6 +1,6 @@
 === Custom CSS, JS & PHP ===
-Contributors: wpcodefactory, algoritmika, anbinder
-Tags: css, js, php, javascript, custom css, custom js, custom php, custom javascript
+Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmukherjeeli
+Tags: css, js, php, javascript
 Requires at least: 4.4
 Tested up to: 6.6
 Stable tag: 2.3.0
