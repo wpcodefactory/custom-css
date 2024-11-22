@@ -27,9 +27,15 @@ class Alg_Custom_CSS_JS_PHP_Core {
 		// CSS & JS
 		foreach ( array( 'css', 'js' ) as $css_or_js ) {
 			foreach ( array( 'front', 'back' ) as $front_or_back ) {
-				if ( 'yes' === get_alg_ccjp_option( "{$front_or_back}_end_{$css_or_js}_enabled", 'no' ) && '' != get_alg_ccjp_option( "{$front_or_back}_end_{$css_or_js}", '' ) ) {
-					add_action( ( 'front' === $front_or_back ? 'wp' : 'admin' ) . '_' . get_alg_ccjp_option( "{$front_or_back}_end_{$css_or_js}_position", 'head' ),
-						array( $this, "hook_custom_{$css_or_js}_{$front_or_back}_end" ), PHP_INT_MAX );
+				if (
+					'yes' === get_alg_ccjp_option( "{$front_or_back}_end_{$css_or_js}_enabled", 'no' ) &&
+					'' != get_alg_ccjp_option( "{$front_or_back}_end_{$css_or_js}", '' )
+				) {
+					add_action(
+						( 'front' === $front_or_back ? 'wp' : 'admin' ) . '_' . get_alg_ccjp_option( "{$front_or_back}_end_{$css_or_js}_position", 'head' ),
+						array( $this, "hook_custom_{$css_or_js}_{$front_or_back}_end" ),
+						PHP_INT_MAX
+					);
 				}
 			}
 		}

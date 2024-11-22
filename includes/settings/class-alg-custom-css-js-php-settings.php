@@ -2,7 +2,7 @@
 /**
  * Custom CSS, JS & PHP - Settings Class
  *
- * @version 2.3.0
+ * @version 2.4.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -136,12 +136,12 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * save_options.
 	 *
-	 * @version 2.1.0
+	 * @version 2.4.0
 	 * @since   1.0.0
 	 */
 	function save_options() {
 		if ( isset( $_POST['alg_ccjp_submit'] ) ) {
-			$section = sanitize_text_field( $_POST['alg_ccjp_submit'] );
+			$section = sanitize_text_field( wp_unslash( $_POST['alg_ccjp_submit'] ) );
 			// Saving options
 			foreach ( $this->get_settings( $section ) as $settings ) {
 				if ( in_array( $settings['type'], array( 'title', 'sectionend' ) ) ) {
@@ -153,7 +153,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 						$value = ( isset( $_POST[ $id ] ) ? 'yes' : 'no' );
 						break;
 					default: // 'textarea', 'select':
-						$value = ( isset( $_POST[ $id ] ) ? $this->sanitize_content( $_POST[ $id ] ) : '' );
+						$value = ( isset( $_POST[ $id ] ) ? $this->sanitize_content( $_POST[ $id ] ) : '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 						break;
 				}
 				update_option( $id, $value );
@@ -235,10 +235,12 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * create_plugin_options_page.
 	 *
-	 * @version 2.3.0
+	 * @version 2.4.0
 	 * @since   1.0.0
 	 */
 	function create_plugin_options_page( $section ) {
+
+		// Table data
 		$table_data = array();
 		foreach ( $this->get_settings( $section ) as $i => $settings ) {
 			if ( in_array( $settings['type'], array( 'title', 'sectionend' ) ) ) {
@@ -285,35 +287,56 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 					break;
 			}
 		}
+
+		// Menu
 		$menu = array();
 		foreach ( array( 'css', 'js', 'php' ) as $_section ) {
 			$menu[] = '<a style="text-decoration:none;' . ( $_section == $section ? 'font-weight:bold;' : '' ) . '" href="' . admin_url( 'tools.php?page=alg-custom-' . $_section ) . '">' .
-				strtoupper( $_section ) . '</a>';
+				strtoupper( $_section ) .
+			'</a>';
 		}
-		$html = '';
-		$html .= '<style>.alg_ccjp_striped tr:nth-child(odd) { background-color: #fbfbfb; }</style>';
-		$html .= '<div class="wrap">';
-		$html .= '<h1>' . __( 'Custom CSS, JS & PHP', 'custom-css' ) . '</h1>';
-		$html .= '<p style="font-style:italic;">' . __( 'Just another custom CSS, JavaScript & PHP tool for WordPress.', 'custom-css' ) . '</p>';
-		$html .= '<p>' . implode( ' | ', $menu ) . '</p>';
-		$html .= '<form action="' . add_query_arg( '', '' ) . '" method="post">';
-		$html .= $this->get_table_html( $table_data, array(
-			'table_style'        => 'width:100%;',
-			'table_class'        => 'widefat alg_ccjp_striped',
-			'table_heading_type' => 'vertical',
-			'columns_styles'     => array( 'width:20%', 'width:80%' )
-		) );
-		$html .= '<p>' . '<button id="alg_ccjp_submit" name="alg_ccjp_submit" type="submit" class="button button-primary" value="' . $section . '">' .
-			__( 'Save changes', 'custom-css' ) . '</button>' . '</p>';
-		$html .= '</form>';
-		$html .= '</div>';
-		echo $html;
+
+		// Output
+		?>
+		<style>
+			.alg_ccjp_striped tr:nth-child(odd) {
+				background-color: #fbfbfb;
+			}
+		</style>
+		<div class="wrap">
+			<h1>
+				<?php esc_html_e( 'Custom CSS, JS & PHP', 'custom-css' ); ?>
+			</h1>
+			<p style="font-style:italic;">
+				<?php esc_html_e( 'Just another custom CSS, JavaScript & PHP tool for WordPress.', 'custom-css' ); ?>
+			</p>
+			<p>
+				<?php echo wp_kses_post( implode( ' | ', $menu ) ); ?>
+			</p>
+			<form action="<?php echo esc_url( add_query_arg( '', '' ) ); ?>" method="post">
+				<?php
+				echo $this->get_table_html( $table_data, array(
+					'table_style'        => 'width:100%;',
+					'table_class'        => 'widefat alg_ccjp_striped',
+					'table_heading_type' => 'vertical',
+					'columns_styles'     => array( 'width:20%', 'width:80%' ),
+				) );
+				?>
+				<p>
+					<button id="alg_ccjp_submit" name="alg_ccjp_submit" type="submit" class="button button-primary" value="<?php echo esc_attr( $section ); ?>">
+						<?php esc_html_e( 'Save changes', 'custom-css' ); ?>
+					</button>
+				</p>
+			</form>
+		</div>
+		<?php
+
 	}
 
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.3.0
+	 * @version 2.4.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) custom PHP: `defined( 'ABSPATH' ) || exit;`
@@ -443,10 +466,20 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 					'title'    => __( 'Custom PHP', 'custom-css' ),
 					'type'     => 'title',
 					'id'       => 'php_options',
-					'desc_tip' => sprintf(
-						__( 'Please note that if you enable custom PHP and enter non-valid PHP code here, your site will become unavailable. To fix this you will have to add %s attribute to the URL (you must be logged as shop manager or admin (for this reason custom PHP code is not executed on %s page)).', 'custom-css' ),
-							'<code>alg_disable_custom_php</code>', '<strong>wp-login.php</strong>' ) . ' ' .
-						sprintf( __( 'E.g.: %s', 'custom-css' ), '<a href="' . $disable_custom_php_link . '">' . $disable_custom_php_link . '</a>' ),
+					'desc_tip' =>
+						sprintf(
+							/* Translators: %1$s: Attribute name, %2$s: WordPress login page. */
+							__( 'Please note that if you enable custom PHP and enter non-valid PHP code here, your site will become unavailable. To fix this you will have to add %1$s attribute to the URL (you must be logged as shop manager or admin (for this reason custom PHP code is not executed on %2$s page)).', 'custom-css' ),
+							'<code>alg_disable_custom_php</code>',
+							'<strong>wp-login.php</strong>'
+						) . ' ' .
+						sprintf(
+							/* Translators: %s: Link example. */
+							__( 'E.g.: %s', 'custom-css' ),
+							'<a href="' . $disable_custom_php_link . '">' .
+								$disable_custom_php_link .
+							'</a>'
+						),
 				),
 				array(
 					'title'    => __( 'PHP', 'custom-css' ),
@@ -456,13 +489,24 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 					'type'     => 'checkbox',
 				),
 				array(
-					'desc_tip' => sprintf( __( 'PHP code (start with the %s tag):', 'custom-css' ), '<code>' . esc_html( '<?php' ) . '</code>' ),
+					'desc_tip' => sprintf(
+						/* Translators: %s: Tag name. */
+						__( 'PHP code (start with the %s tag):', 'custom-css' ),
+						'<code>' . esc_html( '<?php' ) . '</code>'
+					),
 					'id'       => 'php',
 					'default'  => '',
 					'type'     => 'textarea',
 					'css'      => 'width:100%; min-height:600px; font-family:Courier New,Courier,monospace; color: black;',
-					'desc'     => ( file_exists( alg_ccjp()->core->get_custom_php_file_path() ) ?
-						sprintf( __( 'Automatically created PHP file: %s', 'custom-css' ), '<code>' . alg_ccjp()->core->get_custom_php_file_path() . '</code>' ) : '' ),
+					'desc'     => (
+						file_exists( alg_ccjp()->core->get_custom_php_file_path() ) ?
+						sprintf(
+							/* Translators: %s: File path. */
+							__( 'Automatically created PHP file: %s', 'custom-css' ),
+							'<code>' . alg_ccjp()->core->get_custom_php_file_path() . '</code>'
+						) :
+						''
+					),
 				),
 				array(
 					'type'     => 'sectionend',

@@ -1,9 +1,9 @@
 === Custom CSS, JS & PHP ===
-Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmukherjeeli
+Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas
 Tags: css, js, php, javascript
 Requires at least: 4.4
-Tested up to: 6.6
-Stable tag: 2.3.0
+Tested up to: 6.7
+Stable tag: 2.4.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -34,6 +34,12 @@ Just another custom CSS, JavaScript & PHP tool for WordPress.
 3. Custom PHP.
 
 == Changelog ==
+
+= 2.4.0 - 22/11/2024 =
+* Dev - Security - Output escaped.
+* Dev - Coding standards improved.
+* Dev - Code refactoring.
+* Tested up to: 6.7.
 
 = 2.3.0 - 05/09/2024 =
 * Dev - Code editors added.
