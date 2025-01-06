@@ -43,6 +43,7 @@ Add `alg_disable_custom_php` parameter to the URL, e.g.: `http://example.com/wp-
 
 = 2.4.1 - 06/01/2025 =
 * Dev - Custom PHP - "Execute" option added. Defaults to "Execute on `plugins_loaded` action". New option: "Execute in `[alg_custom_php]` shortcode".
+* Dev - Changed the deploy script.
 
 = 2.4.0 - 22/11/2024 =
 * Dev - Security - Output escaped.
