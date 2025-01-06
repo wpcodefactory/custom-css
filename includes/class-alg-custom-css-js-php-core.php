@@ -2,7 +2,7 @@
 /**
  * Custom CSS, JS & PHP - Core Class
  *
- * @version 2.2.0
+ * @version 2.4.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -17,13 +17,14 @@ class Alg_Custom_CSS_JS_PHP_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.2.0
+	 * @version 2.4.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (feature) add option to set "custom CSS / JS" on per product basis (i.e., single product page)
 	 * @todo    (feature) CSS and JS minimization
 	 */
 	function __construct() {
+
 		// CSS & JS
 		foreach ( array( 'css', 'js' ) as $css_or_js ) {
 			foreach ( array( 'front', 'back' ) as $front_or_back ) {
@@ -39,10 +40,35 @@ class Alg_Custom_CSS_JS_PHP_Core {
 				}
 			}
 		}
+
 		// PHP
 		if ( 'yes' === get_alg_ccjp_option( 'php_enabled', 'no' ) ) {
-			$this->run_custom_php();
+			$php_execute = get_alg_ccjp_option( 'php_execute', 'plugins_loaded' );
+			switch ( $php_execute ) {
+				case 'plugins_loaded':
+					$this->run_custom_php();
+					break;
+				case 'shortcode':
+					add_shortcode( 'alg_custom_php', array( $this, 'add_custom_php_shortcode' ) );
+					break;
+			}
 		}
+
+	}
+
+	/**
+	 * add_custom_php_shortcode.
+	 *
+	 * @version 2.4.1
+	 * @since   2.4.1
+	 */
+	function add_custom_php_shortcode( $atts, $content ) {
+		ob_start();
+		$file_path = $this->get_custom_php_file_path();
+		if ( file_exists( $file_path ) ) {
+			include_once $file_path;
+		}
+		return ob_get_clean();
 	}
 
 	/**
@@ -89,7 +115,7 @@ class Alg_Custom_CSS_JS_PHP_Core {
 		// Executing custom PHP code
 		$file_path = $this->get_custom_php_file_path();
 		if ( file_exists( $file_path ) ) {
-			include_once( $file_path );
+			include_once $file_path;
 		}
 	}
 

@@ -96,7 +96,7 @@ msgstr ""
 msgid ""
 "Please note that if you enable custom PHP and enter non-valid PHP code here, "
 "your site will become unavailable. To fix this you will have to add %1$s "
-"attribute to the URL (you must be logged as shop manager or admin (for this "
+"parameter to the URL (you must be logged as shop manager or admin (for this "
 "reason custom PHP code is not executed on %2$s page))."
 msgstr ""
 
@@ -113,12 +113,20 @@ msgstr ""
 msgid "Enable custom PHP"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:494
+#: includes/settings/class-alg-custom-css-js-php-settings.php:496
+msgid "Execute on `plugins_loaded` action"
+msgstr ""
+
+#: includes/settings/class-alg-custom-css-js-php-settings.php:497
+msgid "Execute in `[alg_custom_php]` shortcode"
+msgstr ""
+
+#: includes/settings/class-alg-custom-css-js-php-settings.php:503
 #, php-format
 msgid "PHP code (start with the %s tag):"
 msgstr ""
 
-#: includes/settings/class-alg-custom-css-js-php-settings.php:505
+#: includes/settings/class-alg-custom-css-js-php-settings.php:514
 #, php-format
 msgid "Automatically created PHP file: %s"
 msgstr ""

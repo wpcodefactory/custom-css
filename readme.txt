@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas
 Tags: css, js, php, javascript
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,6 +21,12 @@ Just another custom CSS, JavaScript & PHP tool for WordPress.
 
 * We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
 
+== Frequently Asked Questions ==
+
+= How do I disable (non-valid) PHP code? =
+
+Add `alg_disable_custom_php` parameter to the URL, e.g.: `http://example.com/wp-admin/tools.php?page=alg-custom-php&alg_disable_custom_php`.
+
 == Installation ==
 
 1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
@@ -34,6 +40,9 @@ Just another custom CSS, JavaScript & PHP tool for WordPress.
 3. Custom PHP.
 
 == Changelog ==
+
+= 2.4.1 - 06/01/2025 =
+* Dev - Custom PHP - "Execute" option added. Defaults to "Execute on `plugins_loaded` action". New option: "Execute in `[alg_custom_php]` shortcode".
 
 = 2.4.0 - 22/11/2024 =
 * Dev - Security - Output escaped.

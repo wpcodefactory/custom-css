@@ -2,7 +2,7 @@
 /**
  * Custom CSS, JS & PHP - Settings Class
  *
- * @version 2.4.0
+ * @version 2.4.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -336,7 +336,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.4.0
+	 * @version 2.4.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) custom PHP: `defined( 'ABSPATH' ) || exit;`
@@ -468,8 +468,8 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 					'id'       => 'php_options',
 					'desc_tip' =>
 						sprintf(
-							/* Translators: %1$s: Attribute name, %2$s: WordPress login page. */
-							__( 'Please note that if you enable custom PHP and enter non-valid PHP code here, your site will become unavailable. To fix this you will have to add %1$s attribute to the URL (you must be logged as shop manager or admin (for this reason custom PHP code is not executed on %2$s page)).', 'custom-css' ),
+							/* Translators: %1$s: Parameter name, %2$s: WordPress login page. */
+							__( 'Please note that if you enable custom PHP and enter non-valid PHP code here, your site will become unavailable. To fix this you will have to add %1$s parameter to the URL (you must be logged as shop manager or admin (for this reason custom PHP code is not executed on %2$s page)).', 'custom-css' ),
 							'<code>alg_disable_custom_php</code>',
 							'<strong>wp-login.php</strong>'
 						) . ' ' .
@@ -487,6 +487,15 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 					'id'       => 'php_enabled',
 					'default'  => 'no',
 					'type'     => 'checkbox',
+				),
+				array(
+					'id'       => 'php_execute',
+					'default'  => 'plugins_loaded',
+					'type'     => 'select',
+					'options'  => array(
+						'plugins_loaded' => __( 'Execute on `plugins_loaded` action', 'custom-css' ),
+						'shortcode'      => __( 'Execute in `[alg_custom_php]` shortcode', 'custom-css' ),
+					),
 				),
 				array(
 					'desc_tip' => sprintf(
