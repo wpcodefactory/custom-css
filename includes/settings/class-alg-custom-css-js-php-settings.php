@@ -2,7 +2,7 @@
 /**
  * Custom CSS, JS & PHP - Settings Class
  *
- * @version 2.4.1
+ * @version 2.4.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -136,10 +136,19 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * save_options.
 	 *
-	 * @version 2.4.0
+	 * @version 2.4.2
 	 * @since   1.0.0
 	 */
 	function save_options() {
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return; // User permissions check failed.
+		}
+
+		if ( ! isset( $_POST['_alg_ccjp_save_settings'] ) || ! wp_verify_nonce( $_POST['_alg_ccjp_save_settings'], 'alg_ccjp_save_settings' ) ) {
+			return; // Nonce verification failed.
+		}
+
 		if ( isset( $_POST['alg_ccjp_submit'] ) ) {
 			$section = sanitize_text_field( wp_unslash( $_POST['alg_ccjp_submit'] ) );
 			// Saving options
@@ -235,7 +244,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	/**
 	 * create_plugin_options_page.
 	 *
-	 * @version 2.4.0
+	 * @version 2.4.2
 	 * @since   1.0.0
 	 */
 	function create_plugin_options_page( $section ) {
@@ -323,6 +332,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 				) );
 				?>
 				<p>
+					<?php wp_nonce_field( 'alg_ccjp_save_settings', '_alg_ccjp_save_settings' );; ?>
 					<button id="alg_ccjp_submit" name="alg_ccjp_submit" type="submit" class="button button-primary" value="<?php echo esc_attr( $section ); ?>">
 						<?php esc_html_e( 'Save changes', 'custom-css' ); ?>
 					</button>

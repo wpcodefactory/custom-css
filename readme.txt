@@ -41,6 +41,9 @@ Add `alg_disable_custom_php` parameter to the URL, e.g.: `http://example.com/wp-
 
 == Changelog ==
 
+= 2.4.2 - 30/03/2025 =
+* Dev - Added compatibility check and nonce verification when saving options.
+
 = 2.4.1 - 06/01/2025 =
 * Dev - Custom PHP - "Execute" option added. Defaults to "Execute on `plugins_loaded` action". New option: "Execute in `[alg_custom_php]` shortcode".
 * Dev - Changed the deploy script.
