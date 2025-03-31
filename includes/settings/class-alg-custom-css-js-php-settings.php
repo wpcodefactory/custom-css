@@ -141,40 +141,52 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 	 */
 	function save_options() {
 
+		if ( ! isset( $_POST['alg_ccjp_submit'] ) ) {
+			return;
+		}
+
 		if ( ! current_user_can( 'manage_options' ) ) {
-			return; // User permissions check failed.
+			wp_die( esc_html__( 'User permissions check failed.', 'custom-css' ) );
 		}
 
-		if ( ! isset( $_POST['_alg_ccjp_save_settings'] ) || ! wp_verify_nonce( $_POST['_alg_ccjp_save_settings'], 'alg_ccjp_save_settings' ) ) {
-			return; // Nonce verification failed.
+		if (
+			! isset( $_POST['_alg_ccjp_save_settings'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field( wp_unslash( $_POST['_alg_ccjp_save_settings'] ) ),
+				'alg_ccjp_save_settings'
+			)
+		) {
+			wp_die( esc_html__( 'Nonce verification failed.', 'custom-css' ) );
 		}
 
-		if ( isset( $_POST['alg_ccjp_submit'] ) ) {
-			$section = sanitize_text_field( wp_unslash( $_POST['alg_ccjp_submit'] ) );
-			// Saving options
-			foreach ( $this->get_settings( $section ) as $settings ) {
-				if ( in_array( $settings['type'], array( 'title', 'sectionend' ) ) ) {
-					continue;
-				}
-				$id = ALG_CCJP_ID . '_' . $settings['id'];
-				switch ( $settings['type'] ) {
-					case 'checkbox':
-						$value = ( isset( $_POST[ $id ] ) ? 'yes' : 'no' );
-						break;
-					default: // 'textarea', 'select':
-						$value = ( isset( $_POST[ $id ] ) ? $this->sanitize_content( $_POST[ $id ] ) : '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-						break;
-				}
-				update_option( $id, $value );
+		$section = sanitize_text_field( wp_unslash( $_POST['alg_ccjp_submit'] ) );
+
+		// Saving options
+		foreach ( $this->get_settings( $section ) as $settings ) {
+			if ( in_array( $settings['type'], array( 'title', 'sectionend' ) ) ) {
+				continue;
 			}
-			// (Re)creating / removing PHP file
-			if ( 'php' == $section ) {
-				$this->handle_custom_php_file();
+			$id = ALG_CCJP_ID . '_' . $settings['id'];
+			switch ( $settings['type'] ) {
+				case 'checkbox':
+					$value = ( isset( $_POST[ $id ] ) ? 'yes' : 'no' );
+					break;
+				default: // 'textarea', 'select':
+					$value = ( isset( $_POST[ $id ] ) ? $this->sanitize_content( $_POST[ $id ] ) : '' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+					break;
 			}
-			// The end
-			wp_safe_redirect( remove_query_arg( 'alg_disable_custom_php' ) );
-			exit;
+			update_option( $id, $value );
 		}
+
+		// (Re)creating / removing PHP file
+		if ( 'php' == $section ) {
+			$this->handle_custom_php_file();
+		}
+
+		// The end
+		wp_safe_redirect( remove_query_arg( 'alg_disable_custom_php' ) );
+		exit;
+
 	}
 
 	/**
@@ -332,7 +344,7 @@ class Alg_Custom_CSS_JS_PHP_Settings {
 				) );
 				?>
 				<p>
-					<?php wp_nonce_field( 'alg_ccjp_save_settings', '_alg_ccjp_save_settings' );; ?>
+					<?php wp_nonce_field( 'alg_ccjp_save_settings', '_alg_ccjp_save_settings' ); ?>
 					<button id="alg_ccjp_submit" name="alg_ccjp_submit" type="submit" class="button button-primary" value="<?php echo esc_attr( $section ); ?>">
 						<?php esc_html_e( 'Save changes', 'custom-css' ); ?>
 					</button>

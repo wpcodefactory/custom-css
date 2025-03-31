@@ -3,7 +3,7 @@
 Plugin Name: Custom CSS, JS & PHP
 Plugin URI: https://wpfactory.com
 Description: Just another custom CSS, JavaScript & PHP tool for WordPress.
-Version: 2.4.2-dev
+Version: 2.4.2
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: custom-css
@@ -14,7 +14,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'ALG_CCJP_VERSION' ) || define( 'ALG_CCJP_VERSION', '2.4.2-dev-20250330-1835' );
+defined( 'ALG_CCJP_VERSION' ) || define( 'ALG_CCJP_VERSION', '2.4.2' );
 
 defined( 'ALG_CCJP_ID' ) || define( 'ALG_CCJP_ID', 'alg_custom_css' ); // Should be named `alg_ccjp`, but is named `alg_custom_css` for backwards compatibility
 
